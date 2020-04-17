@@ -17,10 +17,10 @@ class Main2Activity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        Log.d("messageTag", "注册事件 ${eventKey}${busEventSerialNum}")
+        Log.d("messageTag", "注册事件 ${LiveDataBus.get().getKey(this::class.java)}")
         LiveDataBus.get()
             .with(
-                "${eventKey}${busEventSerialNum}",
+                "${LiveDataBus.get().getKey(this::class.java)}",
                 String::class.java
             )
             ?.observe(this, Observer { str ->
@@ -33,15 +33,11 @@ class Main2Activity : BaseActivity() {
     fun sendMessageOnClick(view: View?) {
         Log.d(
             "messageTag",
-            "发送事件 Msg_${MainActivity::class.java.canonicalName}_${LiveDataBus.get().getSerial(
-                MainActivity::class.java
-            )}"
+            "${LiveDataBus.get().getKey(this::class.java)}"
         )
         LiveDataBus.get()
             .with(
-                "Msg_${MainActivity::class.java.canonicalName}_${LiveDataBus.get().getSerial(
-                    MainActivity::class.java
-                )}",
+                "${LiveDataBus.get().getKey(this::class.java)}",
                 String::class.java
             )
             ?.postValue("第二个Activity发向第一个Activity")

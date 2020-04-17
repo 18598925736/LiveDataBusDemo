@@ -11,7 +11,13 @@ class LiveDataBus private constructor() {
      */
     private val busEventSerialization: MutableMap<String, Int>
 
-    fun getSerial(clazz: Class<out Any>): Int {
+
+    // 根据class来获得key
+    fun getKey(clazz: Class<out Any>): String {
+        return "Msg_${clazz.canonicalName}_${get().getSerial(clazz::class.java)}"
+    }
+
+    private fun getSerial(clazz: Class<out Any>): Int {
         val key = clazz.canonicalName!!
 
         return if (!busEventSerialization.containsKey(key)) {
@@ -29,8 +35,7 @@ class LiveDataBus private constructor() {
         return if (!busEventSerialization.containsKey(key)) {
             busEventSerialization[key] = 0
         } else {
-            val current = busEventSerialization[key]
-            busEventSerialization[key] = current!! + 1
+            busEventSerialization[key] = busEventSerialization[key]!! + 1
         }
     }
 

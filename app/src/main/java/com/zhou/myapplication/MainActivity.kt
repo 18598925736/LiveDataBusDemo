@@ -17,10 +17,10 @@ class MainActivity : BaseActivity() {
          * onChange方法重写，
          *
          */
-        Log.d("messageTag", "注册事件 ${eventKey}${busEventSerialNum}")
+        Log.d("messageTag", "注册事件 ${LiveDataBus.get().getKey(this::class.java)}")
         LiveDataBus.get()
             .with(
-                "${eventKey}${LiveDataBus.get().getSerial(this::class.java)}",
+                "${LiveDataBus.get().getKey(this::class.java)}",
                 String::class.java
             )
             ?.observe(this, Observer { str ->
@@ -33,13 +33,11 @@ class MainActivity : BaseActivity() {
     fun sendMessageOnClick(view: View?) {
         Log.d(
             "messageTag",
-            "发送事件 Msg_${Main2Activity::class.java.canonicalName}_${LiveDataBus.get().getSerial(
-                Main2Activity::class.java
-            )}"
+            "${LiveDataBus.get().getKey(Main2Activity::class.java)}"
         )
         LiveDataBus.get()
             .with(
-                "Msg_${Main2Activity::class.java.canonicalName}_${LiveDataBus.get().getSerial(Main2Activity::class.java)}",
+                "${LiveDataBus.get().getKey(Main2Activity::class.java)}",
                 String::class.java
             )
             ?.postValue("MainActivity 发到TwoActivity")
