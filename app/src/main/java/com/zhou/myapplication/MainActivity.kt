@@ -17,8 +17,12 @@ class MainActivity : BaseActivity() {
          * onChange方法重写，
          *
          */
+        Log.d("messageTag", "注册事件 ${eventKey}${busEventSerialNum}")
         LiveDataBus.get()
-            .with("MessageActvity1", String::class.java)
+            .with(
+                "${eventKey}${LiveDataBus.get().getSerial(this::class.java)}",
+                String::class.java
+            )
             ?.observe(this, Observer { str ->
                 if (str != null) {
                     Log.d("messageTag", "MainActivity:收到消息$str")
@@ -29,11 +33,13 @@ class MainActivity : BaseActivity() {
     fun sendMessageOnClick(view: View?) {
         Log.d(
             "messageTag",
-            "发送事件  MessageActvity2_${LiveDataBus.get().getSerial(Main2Activity::class.java)}"
+            "发送事件 Msg_${Main2Activity::class.java.canonicalName}_${LiveDataBus.get().getSerial(
+                Main2Activity::class.java
+            )}"
         )
         LiveDataBus.get()
             .with(
-                "MessageActvity2_${LiveDataBus.get().getSerial(Main2Activity::class.java)}",
+                "Msg_${Main2Activity::class.java.canonicalName}_${LiveDataBus.get().getSerial(Main2Activity::class.java)}",
                 String::class.java
             )
             ?.postValue("MainActivity 发到TwoActivity")
