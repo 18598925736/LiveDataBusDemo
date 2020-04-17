@@ -17,7 +17,7 @@ class MainActivity : BaseActivity() {
          * onChange方法重写，
          *
          */
-        Log.d("messageTag", "注册事件 ${LiveDataBus.get().getKey(this::class.java)}")
+        Log.d("messageTag", "注册事件 -> ${LiveDataBus.get().getKey(this::class.java)}")
         LiveDataBus.get()
             .with(
                 "${LiveDataBus.get().getKey(this::class.java)}",

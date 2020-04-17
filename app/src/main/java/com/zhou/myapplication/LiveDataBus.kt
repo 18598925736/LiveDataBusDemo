@@ -14,7 +14,7 @@ class LiveDataBus private constructor() {
 
     // 根据class来获得key
     fun getKey(clazz: Class<out Any>): String {
-        return "Msg_${clazz.canonicalName}_${get().getSerial(clazz::class.java)}"
+        return "Msg_${clazz.canonicalName}_${get().getSerial(clazz)}"
     }
 
     private fun getSerial(clazz: Class<out Any>): Int {
