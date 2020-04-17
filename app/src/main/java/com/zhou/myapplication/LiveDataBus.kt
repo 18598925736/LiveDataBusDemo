@@ -1,11 +1,38 @@
 package com.zhou.myapplication
 
 import androidx.lifecycle.MutableLiveData
-import java.util.*
 
 class LiveDataBus private constructor() {
     private val bus //防止重复注册，使用Map
             : MutableMap<String, MutableLiveData<Any>?>
+
+    /**
+     * 为了防止事件重复生效，事件注册的时候，必须加上事件序列号，每次用完一个序列号，都要自加1
+     */
+    private val busEventSerialization: MutableMap<String, Int>
+
+    fun getSerial(clazz: Class<out Any>): Int {
+        val key = clazz.canonicalName!!
+
+        return if (!busEventSerialization.containsKey(key)) {
+            busEventSerialization[key] = 0
+            0
+        } else {
+            val current = busEventSerialization[key]
+            current!!
+        }
+    }
+
+    fun letSerialPlusSelf(clazz: Class<out Any>) {
+        val key = clazz.canonicalName!!
+
+        return if (!busEventSerialization.containsKey(key)) {
+            busEventSerialization[key] = 0
+        } else {
+            val current = busEventSerialization[key]
+            busEventSerialization[key] = current!! + 1
+        }
+    }
 
     private object SingletonHolder {
         val LIVE_DATA_BUS =
@@ -41,5 +68,6 @@ class LiveDataBus private constructor() {
 
     init {
         bus = HashMap()
+        busEventSerialization = HashMap()
     }
 }

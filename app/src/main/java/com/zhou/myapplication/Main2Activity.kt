@@ -3,7 +3,6 @@ package com.zhou.myapplication
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 
 
@@ -12,17 +11,18 @@ import androidx.lifecycle.Observer
  * 邮箱：Lhaolin0304@sina.com
  * class:
  */
-class Main2Activity : AppCompatActivity() {
-
-    companion object {
-        var seri = 1
-    }
+class Main2Activity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+        Log.d("messageTag", "注册事件 MessageActvity2_${busEventSerialKey}")
         LiveDataBus.get()
-            .with("MessageActvity2_$seri", String::class.java)
+            .with(
+                "MessageActvity2_${busEventSerialKey}",
+                String::class.java
+            )
             ?.observe(this, Observer { str ->
                 if (str != null) {
                     Log.d("messageTag", "TwoActivity:收到消息$str")
@@ -36,9 +36,8 @@ class Main2Activity : AppCompatActivity() {
             ?.postValue("第二个Activity发向第一个Activity")
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        seri++
+    fun finishSelf(view: View?) {
+        finish()
     }
 
 }
