@@ -17,18 +17,24 @@ class LiveDataBus private constructor() {
         return "Msg_${clazz.canonicalName}_${get().getSerial(clazz)}"
     }
 
+    /**
+     * 获取序列号, 序列号和事件的注册和发送密切相关
+     */
     private fun getSerial(clazz: Class<out Any>): Int {
         val key = clazz.canonicalName!!
 
-        return if (!busEventSerialization.containsKey(key)) {
+        return if (!busEventSerialization.containsKey(key)) {// 不存在，则添加
             busEventSerialization[key] = 0
-            0
+            0 // 然后返回0
         } else {
-            val current = busEventSerialization[key]
-            current!!
+            val current = busEventSerialization[key] // 若已存在，就直接返回
+            current ?: 0// 如果是空，则报错
         }
     }
 
+    /**
+     * 序列号自加1
+     */
     fun letSerialPlusSelf(clazz: Class<out Any>) {
         val key = clazz.canonicalName!!
 

@@ -6,11 +6,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 
 
-/**
- * 作者：haoLin_Lee on 2019/04/25 22:40
- * 邮箱：Lhaolin0304@sina.com
- * class:
- */
 class Main2Activity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
