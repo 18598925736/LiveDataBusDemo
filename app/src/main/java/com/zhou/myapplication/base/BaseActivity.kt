@@ -13,8 +13,8 @@ open class BaseActivity : AppCompatActivity() {
         lifecycle.addObserver(presenter)
     }
 
-    fun sendLiveDataEvent(targetActivity: Class<out Any>, msg: String) {
-        presenter.sendLiveDataEvent(targetActivity, msg)
+    fun sendLiveDataEvent(target: Class<out Any>, msg: String) {
+        presenter.sendLiveDataEvent(target, msg)
     }
 
 }

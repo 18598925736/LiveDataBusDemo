@@ -46,8 +46,7 @@ class LiveDataBus private constructor() {
     }
 
     private object SingletonHolder {
-        val LIVE_DATA_BUS =
-            LiveDataBus() // 这个也是一种单例的写法,静态内部类
+        val LIVE_DATA_BUS = LiveDataBus() // 这个也是一种单例的写法,静态内部类
     }
 
     /**
