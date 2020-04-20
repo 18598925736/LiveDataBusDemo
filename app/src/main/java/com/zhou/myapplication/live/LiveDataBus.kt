@@ -1,4 +1,4 @@
-package com.zhou.myapplication
+package com.zhou.myapplication.live
 
 import androidx.lifecycle.MutableLiveData
 

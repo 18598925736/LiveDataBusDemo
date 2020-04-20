@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import com.zhou.myapplication.base.BaseActivity
+import com.zhou.myapplication.live.LiveDataBus
 
 
 class Main2Activity : BaseActivity() {
@@ -12,7 +14,7 @@ class Main2Activity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        Log.d("messageTag", "注册事件 ${LiveDataBus.get().getKey(this::class.java)}")
+        Log.d("messageTag", "注册事件 -> ${LiveDataBus.get().getKey(this::class.java)}")
         LiveDataBus.get()
             .with(
                 "${LiveDataBus.get().getKey(this::class.java)}",
@@ -20,7 +22,7 @@ class Main2Activity : BaseActivity() {
             )
             ?.observe(this, Observer { str ->
                 if (str != null) {
-                    Log.d("messageTag", "TwoActivity:收到消息$str")
+                    Log.d("messageTag", "Main2Activity:收到消息$str")
                 }
             })
     }
@@ -28,14 +30,14 @@ class Main2Activity : BaseActivity() {
     fun sendMessageOnClick(view: View?) {
         Log.d(
             "messageTag",
-            "${LiveDataBus.get().getKey(this::class.java)}"
+            "发送事件：${LiveDataBus.get().getKey(this::class.java)}"
         )
         LiveDataBus.get()
             .with(
-                "${LiveDataBus.get().getKey(this::class.java)}",
+                "${LiveDataBus.get().getKey(MainActivity::class.java)}",
                 String::class.java
             )
-            ?.postValue("第二个Activity发向第一个Activity")
+            ?.postValue("Main2Activity 发向 MainActivity的消息")
     }
 
     fun finishSelf(view: View?) {

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import com.zhou.myapplication.base.BaseActivity
+import com.zhou.myapplication.live.LiveDataBus
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,14 +35,14 @@ class MainActivity : BaseActivity() {
     fun sendMessageOnClick(view: View?) {
         Log.d(
             "messageTag",
-            "${LiveDataBus.get().getKey(Main2Activity::class.java)}"
+            "发送事件：${LiveDataBus.get().getKey(Main2Activity::class.java)}"
         )
         LiveDataBus.get()
             .with(
                 "${LiveDataBus.get().getKey(Main2Activity::class.java)}",
                 String::class.java
             )
-            ?.postValue("MainActivity 发到TwoActivity")
+            ?.postValue("MainActivity 发到  Main2Activity")
     }
 
     fun jumpActivityOnClick(view: View?) {
