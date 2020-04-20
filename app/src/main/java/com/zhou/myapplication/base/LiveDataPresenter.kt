@@ -10,7 +10,8 @@ import com.zhou.myapplication.interfaces.BasePresenterInterface
  */
 class LiveDataPresenter : BasePresenterInterface {
 
-    private val owner: LifecycleOwner
+    private val owner: LifecycleOwner // 所谓LifecycleOwner是一个接口，它的实现类，其实就两个，一个Fragment，一个Activity,
+    // 用一个接口消除两者之间的沟通差异，这也算一种解耦思维，接口解耦！
     private val ob: Observer<Any?>
 
     constructor(owner: LifecycleOwner, ob: Observer<Any?>) {
