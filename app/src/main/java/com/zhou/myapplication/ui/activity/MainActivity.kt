@@ -1,4 +1,4 @@
-package com.zhou.myapplication.activity
+package com.zhou.myapplication.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,5 +18,10 @@ class MainActivity : BaseActivity() {
         btn2.setOnClickListener {
             startActivity(Intent().setClass(this@MainActivity, Main2Activity::class.java))
         }
+    }
+
+    override fun handlerMsg(msg: Any?) {
+        super.handlerMsg(msg)
+        tv_msg.text = msg.toString()
     }
 }

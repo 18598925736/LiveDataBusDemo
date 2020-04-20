@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.zhou.myapplication.interfaces.BasePresenterInterface
-import com.zhou.myapplication.live.LiveDataBus
 
 /**
  * LiveDataBus的P类
@@ -12,9 +11,11 @@ import com.zhou.myapplication.live.LiveDataBus
 class LiveDataPresenter : BasePresenterInterface {
 
     private val owner: LifecycleOwner
+    private val ob: Observer<Any?>
 
-    constructor(owner: LifecycleOwner) {
+    constructor(owner: LifecycleOwner, ob: Observer<Any?>) {
         this.owner = owner
+        this.ob = ob
     }
 
     override fun onCreate() {
@@ -26,27 +27,21 @@ class LiveDataPresenter : BasePresenterInterface {
     private fun registerEventBus() {
         Log.d("messageTag", "注册事件 -> ${LiveDataBus.get().getKey(owner::class.java)}")
         LiveDataBus.get()
-            .with(
-                "${LiveDataBus.get().getKey(owner::class.java)}",
-                String::class.java
-            )
-            ?.observe(owner, Observer { str ->
-                if (str != null) {
-                    Log.d("messageTag", "${owner::class.java}-> 收到消息:$str")
-                }
-            })
+            .with<String>("${LiveDataBus.get().getKey(owner::class.java)}")
+            ?.observe(owner, ob)
     }
 
+    /**
+     * @param target 目标
+     * @param msg 消息
+     */
     fun sendLiveDataEvent(target: Class<out Any>, msg: String) {
         Log.d(
             "messageTag",
             "发送事件：${LiveDataBus.get().getKey(target)}"
         )
         LiveDataBus.get()
-            .with(
-                "${LiveDataBus.get().getKey(target)}",
-                String::class.java
-            )
+            .with<String>("${LiveDataBus.get().getKey(target)}")
             ?.postValue(msg)
     }
 

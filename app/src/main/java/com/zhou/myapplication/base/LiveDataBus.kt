@@ -1,4 +1,4 @@
-package com.zhou.myapplication.live
+package com.zhou.myapplication.base
 
 import androidx.lifecycle.MutableLiveData
 
@@ -46,19 +46,19 @@ class LiveDataBus private constructor() {
     }
 
     private object SingletonHolder {
-        val LIVE_DATA_BUS = LiveDataBus() // 这个也是一种单例的写法,静态内部类
+        val LIVE_DATA_BUS =
+            LiveDataBus() // 这个也是一种单例的写法,静态内部类
     }
 
     /**
      * 创建一个 观察者，也就是注册事件
      *
      * @param key
-     * @param type
      * @param <T>
      * @return
     </T> */
     @Synchronized
-    fun <T> with(key: String, type: Class<T>?): MutableLiveData<T>? {
+    fun <T> with(key: String): MutableLiveData<T>? {
         if (!bus.containsKey(key)) { // 不包含，则添加
             bus[key] = MutableLiveData()
         }

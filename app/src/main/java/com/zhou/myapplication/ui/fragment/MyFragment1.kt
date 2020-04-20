@@ -1,13 +1,14 @@
-package com.zhou.myapplication.fragment
+package com.zhou.myapplication.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.zhou.myapplication.R
-import com.zhou.myapplication.activity.Main2Activity
 import com.zhou.myapplication.base.BaseFragment
+import com.zhou.myapplication.ui.activity.Main2Activity
 
 class MyFragment1 : BaseFragment() {
 
@@ -30,5 +31,13 @@ class MyFragment1 : BaseFragment() {
             sendLiveDataEvent(Main2Activity::class.java, "activity,activity，收到請回答，我是f1")
         }
 
+        tvMsg = root?.findViewById(R.id.tv_msg)
+    }
+
+    private var tvMsg: TextView? = null
+
+    override fun handlerMsg(msg: Any?) {
+        super.handlerMsg(msg)
+        tvMsg?.text = msg.toString()
     }
 }

@@ -1,11 +1,11 @@
-package com.zhou.myapplication.activity
+package com.zhou.myapplication.ui.activity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.zhou.myapplication.R
 import com.zhou.myapplication.base.BaseActivity
-import com.zhou.myapplication.fragment.MyFragment1
-import com.zhou.myapplication.fragment.MyFragment2
+import com.zhou.myapplication.ui.fragment.MyFragment1
+import com.zhou.myapplication.ui.fragment.MyFragment2
 import kotlinx.android.synthetic.main.activity_main2.*
 
 
@@ -38,6 +38,11 @@ class Main2Activity : BaseActivity() {
         beginTransaction.add(contentFrame, fragment)
         beginTransaction.show(fragment)
         beginTransaction.commitAllowingStateLoss()
+    }
+
+    override fun handlerMsg(msg: Any?) {
+        super.handlerMsg(msg)
+        tv_msg.text = msg.toString()
     }
 }
 

@@ -10,28 +10,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我是Fragment1"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/btn_send_to_fragment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:background="#ffffff"
         android:padding="5dp"
         android:text="发消息给Fragment2"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/btn_send_to_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:background="#ffffff"
         android:padding="5dp"
         android:text="发消息给Activity"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收到的消息都存放在这里"
+        android:textSize="15sp" />
 </LinearLayout>
